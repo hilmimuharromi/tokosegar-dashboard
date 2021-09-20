@@ -18,7 +18,7 @@ export default function Table(props: TableProps) {
         <th
           key={index.toString()}
           scope="col"
-          className="px-6 py-3 text-left text-xs font-medium  text-white uppercase tracking-wider"
+          className="px-3 py-3 text-left text-xs font-medium  text-white uppercase tracking-wider whitespace-nowrap"
         >
           {item.title}
         </th>
@@ -40,10 +40,7 @@ export default function Table(props: TableProps) {
         {headers.map((h, index) => {
           if (h.render)
             return (
-              <td
-                key={index.toString()}
-                className="px-6 py-4 whitespace-nowrap"
-              >
+              <td key={index.toString()} className="px-6 py-4 whitespace-wrap">
                 {h.render(item)}
               </td>
             );
