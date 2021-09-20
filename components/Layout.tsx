@@ -1,5 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
+import Header from "./Header";
 import Sidebar from "./Sidebar";
+
 type Props = {
   children?: ReactNode;
   title?: string;
@@ -7,9 +9,15 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="relative min-h-screen md:flex">
-      <Sidebar />
-      <div>{children}</div>
+    <div className="flex">
+      <div className="h-screen top-0 sticky p-2">
+        <Sidebar />
+      </div>
+      <div className="flex-grow p-4">
+        <Header />
+
+        {children}
+      </div>
     </div>
   );
 };

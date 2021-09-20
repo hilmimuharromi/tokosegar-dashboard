@@ -1,5 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../assets/image/logo.png";
 import { useRouter } from "next/router";
 import {
   IconCube,
@@ -34,30 +36,29 @@ const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const iconHandler = (item: any) => {
     if (item.icon === "home") {
-      return <IconHome fill={activeMenu === item.url ? "white" : "#4FD1C5"} />;
+      return <IconHome fill={activeMenu === item.url ? "white" : "#23AB96"} />;
     } else if (item.icon === "cube") {
-      return <IconCube fill={activeMenu === item.url ? "white" : "#4FD1C5"} />;
+      return <IconCube fill={activeMenu === item.url ? "white" : "#23AB96"} />;
     } else if (item.icon === "collection") {
       return (
-        <IconCollection fill={activeMenu === item.url ? "white" : "#4FD1C5"} />
+        <IconCollection fill={activeMenu === item.url ? "white" : "#23AB96"} />
       );
     } else if (item.icon === "switchH") {
       return (
-        <IconSwitchH fill={activeMenu === item.url ? "white" : "#4FD1C5"} />
+        <IconSwitchH fill={activeMenu === item.url ? "white" : "#23AB96"} />
       );
     }
   };
 
   useEffect(() => {
     const { pathname } = router;
-    // const urlName = pathname.slice(1);
-    // console.log(urlName, pathname);
     setActiveMenu(pathname);
   }, [router]);
+
   return (
-    <div className="sidebar text-black-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-green-200">
-      <div className="flex justify-center items-center bg-primary h-10 rounded-lg shadow">
-        <h2>Toko Segar</h2>
+    <aside className="text-black-100 w-64 space-y-6 py-7 px-2transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-white-500">
+      <div className="flex justify-center items-center  py-2.5 px-2.5 ">
+        <Image src={Logo} alt="Toko Segar Logo" />
       </div>
 
       {menuItems.map((item) => (
@@ -78,8 +79,10 @@ const Sidebar = () => {
           </div>
         </Link>
       ))}
-      <div className="place-self-end bg-red-200">Logout</div>
-    </div>
+      <div className="place-self-end py-2 px-2 bg-deepCarmine rounded-lg">
+        Logout
+      </div>
+    </aside>
   );
 };
 
