@@ -36,24 +36,27 @@ const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const iconHandler = (item: any) => {
     if (item.icon === "home") {
-      return <IconHome fill={activeMenu === item.url ? "white" : "#23AB96"} />;
+      return <IconHome fill={handleActive(item) ? "white" : "#23AB96"} />;
     } else if (item.icon === "cube") {
-      return <IconCube fill={activeMenu === item.url ? "white" : "#23AB96"} />;
+      return <IconCube fill={handleActive(item) ? "white" : "#23AB96"} />;
     } else if (item.icon === "collection") {
-      return (
-        <IconCollection fill={activeMenu === item.url ? "white" : "#23AB96"} />
-      );
+      return <IconCollection fill={handleActive(item) ? "white" : "#23AB96"} />;
     } else if (item.icon === "switchH") {
-      return (
-        <IconSwitchH fill={activeMenu === item.url ? "white" : "#23AB96"} />
-      );
+      return <IconSwitchH fill={handleActive(item) ? "white" : "#23AB96"} />;
     }
   };
 
   useEffect(() => {
     const { pathname } = router;
+    console.log(router);
+    console.log(pathname.split("/"));
     setActiveMenu(pathname);
   }, [router]);
+
+  const handleActive = (item: any) => {
+    if (activeMenu !== "/" && item.url === "/") return false;
+    else return activeMenu.includes(item.url.toLowerCase());
+  };
 
   return (
     <aside className="text-black-100 w-64 space-y-6 py-7 px-2transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-white-500">
@@ -65,12 +68,12 @@ const Sidebar = () => {
         <Link key={item.title} href={item.url} passHref>
           <div
             className={`flex items-center py-2.5 px-4 rounded-lg transition duration-200 hover:bg-white  hover:shadow cursor-pointer ${
-              activeMenu === item.url && "shadow bg-white"
+              handleActive(item) && "shadow bg-white"
             }`}
           >
             <div
               className={`bg-white py-2 px-2 mr-2 rounded ${
-                activeMenu === item.url && "bg-primary"
+                handleActive(item) && "bg-primary"
               }`}
             >
               {iconHandler(item)}

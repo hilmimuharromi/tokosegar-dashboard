@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { TableProduct } from "../components";
+import { TableProduct } from "../../components";
 import { GetServerSideProps } from "next";
 import { AppProps } from "next/app";
-import { useGetProducts } from "../utils/useRequest";
+import { useGetProducts } from "../../utils/useRequest";
 
 interface dataProps {
   data: {

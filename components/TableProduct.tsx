@@ -1,6 +1,7 @@
 import Table from "./Table";
 import Image from "next/image";
-import { IconSearch, IconClear } from "../assets/icon";
+import Link from "next/link";
+import { IconSearch, IconClear, IconPlus } from "../assets/icon";
 import { useState, useEffect } from "react";
 const TableProduct = ({ data }: any) => {
   const [searchInput, setSearchInput] = useState("");
@@ -19,7 +20,19 @@ const TableProduct = ({ data }: any) => {
     if (searchInput) {
       filterData();
     } else {
-      setDataTable(data);
+      let sortData = data.sort((a: any, b: any) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
+      setDataTable(sortData);
     }
   }, [searchInput]);
 
@@ -77,8 +90,8 @@ const TableProduct = ({ data }: any) => {
   ];
   return (
     <>
-      <div className="flex w:full mb-5">
-        <div className="flex py-2.5 px-2.5  rounded shadow bg-white">
+      <div className="flex w:full mb-5 px-5 justify-between">
+        <div className="flex py-2.5 px-2.5  rounded shadow bg-white ">
           <IconSearch fill={"#23AB96"} />
           <input
             value={searchInput}
@@ -91,6 +104,14 @@ const TableProduct = ({ data }: any) => {
               <IconClear className="w-10 h-10" fill={"#23AB96"} />
             </div>
           )}
+        </div>
+        <div>
+          <Link href={"/product/new"} passHref>
+            <button className="flex items-center py-2.5 px-2.5  rounded shadow bg-white bg-primary text-white">
+              <IconPlus fill={"#fff"} />
+              Produk
+            </button>
+          </Link>
         </div>
       </div>
       <Table data={dataTable} headers={headers} />
