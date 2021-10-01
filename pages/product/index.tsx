@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import { TableProduct } from "../../components";
 import { GetServerSideProps } from "next";
 import { AppProps } from "next/app";
-import { useGetProducts } from "../../utils/useRequest";
-
+import { useGetProducts } from "../../lib/utils/useRequest";
+import {mutate} from 'swr'
 interface dataProps {
   data: {
     id: string;
@@ -11,31 +11,14 @@ interface dataProps {
     desciption: string;
   }[];
 }
-const ProductPage = ({ data }: dataProps) => {
-  const { products, error } = useGetProducts("/product");
-  if (error || !products) {
-    return <h2>error ....</h2>;
-  }
-  console.log("products", products);
-  console.log("error", error);
+const ProductPage = () => {
+  
   return (
     <div>
-      <TableProduct data={products.data} />
+      <TableProduct />
     </div>
   );
 };
 
 export default ProductPage;
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const res = await fetch("http://localhost:5000/product");
-//   const { data, error } = await res.json();
-
-//   console.log(error, "get data product");
-
-//   return {
-//     props: {
-//       data: [...data, ...data, ...data],
-//     },
-//   };
-// };

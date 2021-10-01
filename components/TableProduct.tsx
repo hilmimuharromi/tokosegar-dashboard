@@ -3,38 +3,79 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconSearch, IconClear, IconPlus } from "../assets/icon";
 import { useState, useEffect } from "react";
-const TableProduct = ({ data }: any) => {
+import Pagination from './Pagination'
+import {useGetProducts} from '../lib/utils/useRequest'
+
+const TableProduct = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [dataTable, setDataTable] = useState(data);
+  const [dataTable, setDataTable] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalData, setTotalData] = useState(0)
+  const [limit, setLimit] = useState(5)
+  
+  const { products, error } = useGetProducts(`/product?limit=${limit}&page=${currentPage}&search=${searchInput}`);
+ 
+
 
   useEffect(() => {
-    const filterData = () => {
-      const newData = data.filter((item: any) => {
-        let name: string = item.name.toLowerCase();
-        if (name.includes(searchInput.toLowerCase())) {
-          return item;
-        }
-      });
-      setDataTable(newData);
-    };
-    if (searchInput) {
-      filterData();
-    } else {
-      let sortData = data.sort((a: any, b: any) => {
-        let fa = a.name.toLowerCase(),
-          fb = b.name.toLowerCase();
+    console.log('====>',currentPage)
 
-        if (fa < fb) {
-          return -1;
-        }
-        if (fa > fb) {
-          return 1;
-        }
-        return 0;
-      });
-      setDataTable(sortData);
+    if(products) {
+
+      setDataTable(products.data.rows)
+      setTotalData(products.data.count)
+      
     }
-  }, [searchInput]);
+
+   
+ 
+  }, [products])
+
+
+
+
+ 
+
+
+  // useEffect(() => {
+  //   const filterData = () => {
+  //     const newData = dataTable.filter((item: any) => {
+  //       let name: string = item.name.toLowerCase();
+  //       if (name.includes(searchInput.toLowerCase())) {
+  //         return item;
+  //       }
+  //     });
+  //     setDataTable(newData);
+  //   };
+  //   if (searchInput) {
+  //     filterData();
+  //   } else {
+  //     let sortData = dataTable.sort((a: any, b: any) => {
+  //       let fa = a.name.toLowerCase(),
+  //         fb = b.name.toLowerCase();
+
+  //       if (fa < fb) {
+  //         return -1;
+  //       }
+  //       if (fa > fb) {
+  //         return 1;
+  //       }
+  //       return 0;
+  //     });
+  //     setDataTable(sortData);
+  //   }
+  // }, [searchInput, dataTable]);
+
+  if (error) {
+    return <h2>error ....</h2>;
+  };
+
+  // if(!products) {
+  //   return(<p>Loading.....</p>)
+  // }
+
+ 
+
 
   const headers = [
     {
@@ -107,14 +148,23 @@ const TableProduct = ({ data }: any) => {
         </div>
         <div>
           <Link href={"/product/new"} passHref>
-            <button className="flex items-center py-2.5 px-2.5  rounded shadow bg-white bg-primary text-white">
-              <IconPlus fill={"#fff"} />
+            <button className="flex items-center py-2.5 px-2.5  rounded shadow bg-white text-primary">
+              <IconPlus fill={"#23AB96"}  />
+              <p className="ml-3">
               Produk
+              </p>
             </button>
           </Link>
         </div>
       </div>
+
       <Table data={dataTable} headers={headers} />
+      <Pagination  
+      totalData={totalData}
+      limit={limit}
+      setLimit={setLimit}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage} />
     </>
   );
 };

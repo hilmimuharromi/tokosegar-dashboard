@@ -36,7 +36,7 @@ const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const iconHandler = (item: any) => {
     if (item.icon === "home") {
-      return <IconHome fill={handleActive(item) ? "white" : "#23AB96"} />;
+      return <IconHome fill={handleActive(item) ? "#fff" : "#23AB96"} />;
     } else if (item.icon === "cube") {
       return <IconCube fill={handleActive(item) ? "white" : "#23AB96"} />;
     } else if (item.icon === "collection") {
@@ -59,7 +59,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="text-black-100 w-64 space-y-6 py-7 px-2transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-white-500">
+    <aside className="text-black-100 w-64 space-y-6 py-7 px-2 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-white-500">
       <div className="flex justify-center items-center  py-2.5 px-2.5 ">
         <Image src={Logo} alt="Toko Segar Logo" />
       </div>
@@ -72,8 +72,8 @@ const Sidebar = () => {
             }`}
           >
             <div
-              className={`bg-white py-2 px-2 mr-2 rounded ${
-                handleActive(item) && "bg-primary"
+              className={`py-2 px-2 mr-2 rounded ${
+                handleActive(item) ? 'bg-primary' : 'bg-white'
               }`}
             >
               {iconHandler(item)}

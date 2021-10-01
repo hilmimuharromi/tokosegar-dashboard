@@ -24,11 +24,11 @@ const Layout = ({ children }: Props) => {
 
 
   return (
-    <div className="flex">
-      <div className="h-screen top-0 sticky p-2">
+    <div className="flex flex-no-wrap">
+      <div className="w-64 absolute sm:relative md:h-full md:flex flex-col justify-between hidden">
         <Sidebar />
       </div>
-      <div className="flex-grow p-4">
+      <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
         <Header />
 
         {children}
