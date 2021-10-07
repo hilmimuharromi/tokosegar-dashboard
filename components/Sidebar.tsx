@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../assets/image/logo.png";
 import { useRouter } from "next/router";
+import trigger, { mutate} from "swr";
 import {
   IconCube,
   IconHome,
@@ -58,8 +59,14 @@ const Sidebar = () => {
     else return activeMenu.includes(item.url.toLowerCase());
   };
 
+  const logout = () => {
+    localStorage.removeItem('user')
+    mutate("user", null);
+    router.push(`/login`);
+  }
+
   return (
-    <aside className="text-black-100 w-64 space-y-6 py-7 px-2 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out bg-white-500">
+    <div className="text-black-100 min-h-screen w-64 space-y-6 py-7 px-2 flex flex-col transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out">
       <div className="flex justify-center items-center  py-2.5 px-2.5 ">
         <Image src={Logo} alt="Toko Segar Logo" />
       </div>
@@ -82,10 +89,10 @@ const Sidebar = () => {
           </div>
         </Link>
       ))}
-      <div className="place-self-end py-2 px-2 bg-deepCarmine rounded-lg">
+      <div onClick={logout} className="items:end py-2 px-4 bg-deepCarmine rounded-lg shadow cursor-pointer hover:translate-y-1">
         Logout
       </div>
-    </aside>
+    </div>
   );
 };
 

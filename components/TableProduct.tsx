@@ -6,12 +6,14 @@ import { useState, useEffect } from "react";
 import Pagination from './Pagination'
 import {useGetProducts} from '../lib/utils/useRequest'
 
-const TableProduct = () => {
+const TableProduct = (props) => {
+  const {setVisible} = props
   const [searchInput, setSearchInput] = useState("");
   const [dataTable, setDataTable] = useState([]);
   const [currentPage, setCurrentPage] = useState(1)
   const [totalData, setTotalData] = useState(0)
   const [limit, setLimit] = useState(5)
+  const [visibleForm, setVisibleForm] = useState(false)
   
   const { products, error } = useGetProducts(`/product?limit=${limit}&page=${currentPage}&search=${searchInput}`);
  
@@ -88,7 +90,6 @@ const TableProduct = () => {
               className="rounded-lg"
               src={item.image_url}
               alt={item.name}
-              layout="responsive"
               width="100"
               height="100"
             />
@@ -115,17 +116,36 @@ const TableProduct = () => {
     {
       title: "Diskon %",
       key: "discount",
+      render: (item: any) => (
+        
+          item.discount ? <p>{item.discount}</p> : <p>0 %</p> 
+        
+      )
     },
     {
       title: "",
       key: "",
       render: (item: any) => (
+        <div className="space-x-4">
         <button
           onClick={() => console.log(item)}
-          className="bg-primary rounded p-1 w-100"
+          className="bg-primary rounded py-2.5 px-2.5 w-200 hover:bg-gray-200 "
         >
           Edit
         </button>
+        <button
+          onClick={() => console.log(item)}
+          className="shadow rounded py-2.5 px-2.5 w-200 hover:bg-gray-200 "
+        >
+          Detail
+        </button>
+        <button
+          onClick={() => console.log(item)}
+          className="bg-red-500 rounded py-2.5 px-2.5 w-200 hover:bg-gray-200 "
+        >
+          Delete
+        </button>
+        </div>
       ),
     },
   ];
@@ -147,14 +167,18 @@ const TableProduct = () => {
           )}
         </div>
         <div>
-          <Link href={"/product/new"} passHref>
-            <button className="flex items-center py-2.5 px-2.5  rounded shadow bg-white text-primary">
-              <IconPlus fill={"#23AB96"}  />
+          {/* <Link href={"/product/new"} passHref> */}
+            <button className="flex items-center py-2.5 px-2.5  rounded shadow bg-white text-primary"
+             onClick={() => setVisible(true)}
+            >
+              <IconPlus fill={"#23AB96"} 
+             
+              />
               <p className="ml-3">
               Produk
               </p>
             </button>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
 
@@ -165,6 +189,7 @@ const TableProduct = () => {
       setLimit={setLimit}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage} />
+      {/* {JSON.stringify(dataTable[0])} */}
     </>
   );
 };

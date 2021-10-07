@@ -6,3 +6,32 @@ body{
   background-color: #E5E5E5;
 
 }
+
+.modal {
+  background: #fff;
+  box-shadow: -3px 0px 5px 0px rgba(0,0,0,0.6);  
+  
+  /* Give our drawer a base width */
+  width: 50%;
+
+  /* Position the drawer on the right edge of the screen */
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 50;
+
+  /* Slide the drawer _past_ the right edge of the screen */
+  transform: translateX(100%);
+
+  /* Transition our horizontal slide */
+  transition: transform ease-out 1s;
+  
+  /* Misc */
+  
+  text-align: center;
+}
+
+.modal-active {
+  transform: translateX(0);
+}

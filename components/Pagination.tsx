@@ -22,7 +22,7 @@ export default function Table(props: PaginationProps) {
       //   const item = page[i];
       content.push(
         <button
-          className={`bg-white text-jungleGreen relative inline-flex  shadow items-center px-4 py-2 border text-sm font-medium
+          className={`bg-white text-jungleGreen flex inline-flex  shadow items-center px-4 py-2 border text-sm font-medium
             ${currentPage === i && 'border-jungleGreen'}
             `}
           onClick={() => setCurrentPage(i)}
@@ -40,13 +40,13 @@ export default function Table(props: PaginationProps) {
         <div className='flex-1 flex justify-between sm:hidden'>
           <a
             href='#'
-            className='relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
+            className='inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
           >
             Previous
           </a>
           <a
             href='#'
-            className='ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
+            className='ml-3 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
           >
             Next
           </a>
@@ -58,7 +58,7 @@ export default function Table(props: PaginationProps) {
               aria-label='Pagination'
             >
               <button
-                className='relative inline-flex items-center px-2 py-2 shadow rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+                className=' inline-flex items-center px-2 py-2 shadow rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
                 onClick={() => setCurrentPage(1)}
               >
                 <span className='sr-only'>Previous</span>
@@ -68,14 +68,14 @@ export default function Table(props: PaginationProps) {
               {getPages()}
 
               <button
-                className='relative inline-flex items-center px-2 py-2  shadow rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+                className=' inline-flex items-center px-2 py-2  shadow rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
                 onClick={() => setCurrentPage(totalPage)}
               >
                 <span className='sr-only'>Next</span>
                 <IconChevronRight fill={'#23AB96'} />
               </button>
             <select 
-            className="relative inline-flex items-center px-4 py-2 shadow rounded-md border border-gray-300 bg-white text-sm font-medium text-jungleGreen hover:bg-gray-50"
+            className=" inline-flex items-center px-4 py-2 shadow rounded-md border border-gray-300 bg-white text-sm font-medium text-jungleGreen hover:bg-gray-50"
             onChange={(e) => setLimit(e.target.value)}
             value={limit}
             >
@@ -86,9 +86,6 @@ export default function Table(props: PaginationProps) {
             </nav>
           </div>
          
-          {/* <div > */}
-
-          {/* </div> */}
         </div>
 
       </div>
